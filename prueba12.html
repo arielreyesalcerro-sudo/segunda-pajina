@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cable Sistema - Planes de Internet y Cable TV en Choloma, Cortés">
+  <title>Planes de Internet Cable Sistema</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    body {
+      background: linear-gradient(135deg, #0a2540 0%, #1e90a6 100%);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      position: relative;
+      padding: 30px 0 0 0;
+      color: #eaf6fb;
+    }
+    .container {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(2.5px) brightness(0.97);
+    }
+    .circle-container {
+      position: absolute;
+      will-change: transform, opacity;
+      pointer-events: none;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+    .circle {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      background: radial-gradient(circle at 60% 40%, #00ffb3 0%, #1e90a6 60%, rgba(30,144,166,0) 100%);
+      box-shadow: 0 0 32px 8px #00ffb355, 0 0 64px 16px #1e90a655;
+      opacity: 0.7;
+      animation: fade-frames 2.5s infinite alternate;
+    }
+    @keyframes fade-frames {
+      0% { opacity: 0.5; }
+      50% { opacity: 0.9; }
+      100% { opacity: 0.5; }
+    }
+    header {
+      background: linear-gradient(90deg, #1e90a6 0%, #0a2540 100%);
+      color: #00ffb3;
+      padding: 28px 10px 18px 10px;
+      text-align: center;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      box-shadow: 0 4px 24px 0 rgba(30,144,166,0.15);
+      position: relative;
+      z-index: 1;
+    }
+    header h1 {
+      font-size: 2.3rem;
+      margin-bottom: 6px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #00ffb3;
+      text-shadow: 0 2px 8px #0a2540;
+    }
+    header p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #eaf6fb;
+      text-shadow: 0 1px 4px #0a2540;
+    }
+    section, .plan-container, ul, footer {
+      position: relative;
+      z-index: 1;
+    }
+    h2 {
+      color: #00ffb3;
+      margin: 36px 0 18px 0;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      text-shadow: 0 1px 4px #0a2540;
+    }
+    .plan-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .plan {
+      background: linear-gradient(135deg, #1e90a6 60%, #0a2540 100%);
+      border: 2px solid #00ffb3;
+      border-radius: 18px;
+      width: 300px;
+      padding: 22px 18px 18px 18px;
+      box-shadow: 0 4px 24px 0 rgba(30,144,166,0.13);
+      transition: transform 0.18s, box-shadow 0.18s, border 0.18s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .plan:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 32px 0 rgba(0,255,179,0.22);
+      border-color: #ff9100;
+    }
+    .plan img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #00ffb344;
+      background: #fff;
+    }
+    .plan h3 {
+      margin-top: 14px;
+      color: #00ffb3;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-shadow: 0 1px 4px #0a2540;
+    }
+    .plan p {
+      color: #eaf6fb;
+      font-size: 1.05rem;
+      margin: 4px 0;
+      text-align: center;
+    }
+    ul {
+      margin-top: 30px;
+      padding-left: 28px;
+      font-size: 1.08rem;
+    }
+    li {
+      margin-bottom: 8px;
+      color: #00ffb3;
+      font-weight: 500;
+      text-shadow: 0 1px 4px #0a2540;
+    }
+    .cta {
+      background: linear-gradient(90deg, #ff9100 0%, #ffb300 100%);
+      color: #fff;
+      padding: 11px 0;
+      width: 100%;
+      text-decoration: none;
+      border-radius: 7px;
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px #ff910044;
+      border: none;
+      transition: background 0.2s, box-shadow 0.2s;
+      text-align: center;
+    }
+    .cta:hover {
+      background: linear-gradient(90deg, #ffb300 0%, #ff9100 100%);
+      box-shadow: 0 4px 16px #ff910055;
+    }
+    footer {
+      background: linear-gradient(90deg, #1e90a6 0%, #0a2540 100%);
+      color: #00ffb3;
+      text-align: center;
+      padding: 16px 0 12px 0;
+      font-size: 1.05rem;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      margin-top: 40px;
+      box-shadow: 0 -2px 16px 0 rgba(30,144,166,0.10);
+      text-shadow: 0 1px 4px #0a2540;
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(30, 144, 166, 0.25);
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(2px);
+    }
+    .modal-content {
+      background: linear-gradient(135deg, #1e90a6 60%, #0a2540 100%);
+      padding: 32px 20px 22px 20px;
+      border-radius: 16px;
+      max-width: 350px;
+      width: 92%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 8px 32px 0 rgba(30,144,166,0.22);
+      border: 2px solid #00ffb3;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 92%;
+      margin: 10px 0;
+      padding: 9px;
+      border-radius: 6px;
+      border: 1.5px solid #00ffb3;
+      font-size: 1rem;
+      background: #eaf6fb;
+      color: #0a2540;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .modal-content input:focus, .modal-content textarea:focus {
+      border: 1.5px solid #ff9100;
+    }
+    .close-modal {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 26px;
+      color: #ff9100;
+      cursor: pointer;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .close-modal:hover {
+      color: #00ffb3;
+    }
+    .modal-content button {
+      background: linear-gradient(90deg, #ff9100 0%, #ffb300 100%);
+      color: #fff;
+      border: none;
+      padding: 11px 0;
+      width: 100%;
+      border-radius: 7px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px #ff910044;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .modal-content button:hover {
+      background: linear-gradient(90deg, #ffb300 0%, #ff9100 100%);
+      box-shadow: 0 4px 16px #ff910055;
+    }
+    @media (max-width: 900px) {
+      .plan-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      body {
+        padding: 10px 0 0 0;
+      }
+      header, footer {
+        border-radius: 0;
+      }
+    }
+    /* Nuevos estilos */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    .hero-title {
+      font-size: 4rem;
+      background: linear-gradient(90deg, #00ffb3, #1e90a6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleGlow 2s ease-in-out infinite alternate;
+    }
+
+    .testimonials {
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .testimonial-card {
+      background: rgba(30,144,166,0.1);
+      padding: 1.5rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,255,179,0.2);
+      transition: transform 0.3s;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(30,144,166,0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,255,179,0.2);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      background: rgba(30,144,166,0.2);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #25D366;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(37,211,102,0.4);
+    }
+
+    @keyframes titleGlow {
+      from { text-shadow: 0 0 20px rgba(0,255,179,0.5); }
+      to { text-shadow: 0 0 30px rgba(0,255,179,0.8); }
+    }
+  </style>
+  <script>
+    // Fondo animado moderno y fluido
+    window.onload = function() {
+      const container = document.createElement('div');
+      container.className = 'container';
+      const colors = [
+        'rgba(0,255,179,0.7)', 'rgba(30,144,166,0.5)', 'rgba(255,145,0,0.4)', 'rgba(0,255,255,0.3)', 'rgba(255,255,255,0.2)'
+      ];
+      for(let i=0; i<18; i++) {
+        const cc = document.createElement('div');
+        cc.className = 'circle-container';
+        const size = Math.random() * 60 + 20; // 20px - 80px
+        cc.style.width = size + 'px';
+        cc.style.height = size + 'px';
+        cc.style.left = (Math.random() * 100) + 'vw';
+        cc.style.top = (Math.random() * 100) + 'vh';
+        cc.style.animationName = 'move-frames-' + i;
+        cc.style.animationDuration = (Math.random() * 15 + 18) + 's';
+        cc.style.animationDelay = (Math.random() * 5) + 's';
+        // Círculo
+        const circle = document.createElement('div');
+        circle.className = 'circle';
+        circle.style.background = `radial-gradient(circle at 60% 40%, ${colors[i%colors.length]} 0%, #1e90a6 60%, rgba(30,144,166,0) 100%)`;
+        cc.appendChild(circle);
+        container.appendChild(cc);
+
+        // Keyframes dinámicos para cada círculo
+        const styleSheet = document.styleSheets[0];
+        const x1 = Math.random() * 100, y1 = Math.random() * 100;
+        const x2 = Math.random() * 100, y2 = Math.random() * 100;
+        styleSheet.insertRule(`
+          @keyframes move-frames-${i} {
+            0% { transform: translate3d(${x1}vw,${y1}vh,0) scale(1); }
+            100% { transform: translate3d(${x2}vw,${y2}vh,0) scale(${Math.random()*1.5+0.7}); }
+          }
+        `, styleSheet.cssRules.length);
+      }
+      document.body.prepend(container);
+    };
+    function abrirModal(plan) {
+      document.getElementById('solicitarModal').style.display = 'flex';
+      document.getElementById('planSeleccionado').value = plan;
+      document.getElementById('solicitudForm').reset();
+    }
+    function cerrarModal() {
+      document.getElementById('solicitarModal').style.display = 'none';
+    }
+    window.onclick = function(event) {
+      var modal = document.getElementById('solicitarModal');
+      if (event.target == modal) {
+        cerrarModal();
+      }
+    };
+    function obtenerUbicacion() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const coords = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`;
+          document.getElementById('direccion').value += (document.getElementById('direccion').value ? '\n' : '') + coords;
+        }, function(error) {
+          alert('No se pudo obtener la ubicación: ' + error.message);
+        });
+      } else {
+        alert('La geolocalización no es soportada por este navegador.');
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1 class="hero-title">Cable Sistema</h1>
+    <p>Conectando tu mundo con la mejor tecnología</p>
+  </header>
+  <h2>Planes de Internet Simétrico</h2>
+  <div class="plan-container">
+    <div class="plan">
+      <img src="logo-01.png" alt="Plan A">
+      <h3>Plan A - Cable + 50 Mbps</h3>
+      <p><strong>Precio:</strong> L. 600</p>
+      <p><strong>Extras:</strong> 1 Caja HD</p><p>Instalación Gratis</p>
+      <a href="#" class="cta" onclick="abrirModal('Plan A - Cable + 50 Mbps')">Solicitar</a>
+    </div>
+    <div class="plan">
+      <img src="logo-01.png" alt="Plan B">
+      <h3>Plan B - Cable + 75 Mbps</h3>
+      <p><strong>Precio:</strong> L. 800</p>
+      <p><strong>Extras:</strong> 1 Caja HD </p><p> 1 Cámara de Seguridad </p><p>Instalación Gratis</p>
+      <a href="#" class="cta" onclick="abrirModal('Plan B - Cable + 75 Mbps')">Solicitar</a>
+    </div>
+    <div class="plan">
+      <img src="logo-01.png" alt="Plan C">
+      <h3>Plan C - Cable + 100 Mbps</h3>
+      <p><strong>Precio:</strong> L. 1,000</p>
+      <p><strong>Extras:</strong> 1 Caja HD </p><p>1 Cámara de Seguridad </p><p>Instalacion Gratis</p>
+      <a href="#" class="cta" onclick="abrirModal('Plan C - Cable + 100 Mbps')">Solicitar</a>
+    </div>
+    <div class="plan">
+      <img src="logo-01.png" alt="Plan D">
+      <h3>Plan D - Solo Cable</h3>
+      <p><strong>Precio:</strong> L. 250</p><p>Para 3 Televisión</p> 
+      <a href="#" class="cta" onclick="abrirModal('Plan D - Solo Cable')">Solicitar</a>
+    </div>
+  </div>
+  <h2>Nuestros Servicios</h2>
+  <ul>
+    <li>🛜 WIFI 5G y 6G</li>
+    <li>🎮 Servicios IP para gamers</li>
+    <li>🏢 Planes residenciales y empresariales</li>
+  </ul>
+<section>
+  <h2>¿Por qué elegirnos?</h2>
+  <ul>
+    <li>Instalación gratuita en zonas seleccionadas</li>
+    <li>Guía interactiva y control parental</li>
+    <li>Soporte técnico 24/7</li>
+  </ul>
+</section>
+<section>
+  <h2>Contáctanos</h2>
+  <p>📱 WhatsApp: +504 89457861 +504 9745-6647 </p>
+  <p>📧 Email: arielreyesalcerro@gmail.com</p>
+  <p>📍 Oficinas: Choloma, Cortés</p>
+</section>
+
+<section class="testimonials">
+    <h2>Lo que dicen nuestros clientes</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p>"El mejor servicio de internet que he tenido. La velocidad es increíble."</p>
+        <h4>- María G.</h4>
+      </div>
+      <div class="testimonial-card">
+        <p>"La atención al cliente es excepcional, siempre están disponibles."</p>
+        <h4>- Carlos R.</h4>
+      </div>
+      <div class="testimonial-card">
+        <p>"Instalación rápida y profesional. Muy satisfecho con el servicio."</p>
+        <h4>- Ana P.</h4>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🚀</div>
+      <h3>Velocidad Superior</h3>
+      <p>Internet simétrico de alta velocidad</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>Seguridad Garantizada</h3>
+      <p>Conexión segura y estable</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎮</div>
+      <h3>Gaming Optimizado</h3>
+      <p>Baja latencia para gaming</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📺</div>
+      <h3>TV HD</h3>
+      <p>Más de 110 canales en HD</p>
+    </div>
+  </section>
+
+  <a href="https://wa.me/50489457861" class="whatsapp-float" target="_blank">
+    📱
+  </a>
+
+  <footer>
+    <p>&copy; 2025 Cable Sistema. Todos los derechos reservados.</p>
+  </footer>
+<!-- Modal para solicitar -->
+<div class="modal" id="solicitarModal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="cerrarModal()">&times;</span>
+    <h3>Solicita tu Plan Tecnológico 🚀</h3>
+    <form id="solicitudForm" name="solicitudForm" action="https://formsubmit.co/arielreyesalcerro@gmail.com" method="POST">
+      <input type="hidden" id="planSeleccionado" name="Plan">
+      <label for="nombre">👤 Nombre completo:</label><br>
+      <input type="text" id="nombre" name="nombre" required autocomplete="name" placeholder="Ej: Juan Pérez"><br>
+      <label for="id">🆔 Identificación:</label><br>
+      <input type="text" id="id" name="identificacion" required placeholder="Tu número de identidad"><br>
+      <label for="telefono">📱 Teléfono:</label><br>
+      <input type="tel" id="telefono" name="telefono" required pattern="[0-9+ ]{8,15}" placeholder="+504 9999-9999"><br>
+      <label for="direccion">📡 Dirección:</label><br>
+      <textarea id="direccion" name="direccion" rows="2" required placeholder="Ciudad, colonia, referencia..."></textarea><br>
+      <button type="button" onclick="obtenerUbicacion()">📍 Obtener mi ubicación GPS</button>
+      <button type="submit">¡Conectar al Futuro!</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
